@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import LoadTempLinks from './tempData';
 
 function App() {
+  const [groups, setGroups] = useState(LoadTempLinks());
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main>
+        {
+          Object.keys(groups).map(name=>{
+            return (
+              <div key={Math.random()}>
+                <div>{name}</div>
+                <div>{
+                  groups[name].links.map(l=>{
+                    return (
+                      <div key={Math.random()}>
+                        <img src={l.faviconsrc} alt="favicon" />
+                        <a href={l.href}>LINK</a>
+                      </div>
+                    );
+                  })
+                }</div>
+              </div>
+            );
+          })
+        }
+      </main>
     </div>
   );
 }
